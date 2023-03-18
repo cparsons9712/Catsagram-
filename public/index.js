@@ -3,7 +3,7 @@
 
 
     let currentImageToVoteOn;
-
+    let karma = 0;
 window.onload = () =>{
     let ele = document.createElement('h1')
     ele.innerText = 'Kitten Pic'
@@ -12,6 +12,11 @@ window.onload = () =>{
     let imgCon = document.createElement('div');
     imgCon.className = 'image-container';
     document.body.append(imgCon)
+
+    let counter = document.createElement("div");
+    counter.className = "karmaDiv"
+    counter.innerText =`Karma: ${karma}`
+    document.body.append(counter)
 
     let changeImg = document.createElement('button')
     changeImg.className = 'change-image'
@@ -25,23 +30,26 @@ window.onload = () =>{
     let upVote = document.createElement('button')
     upVote.className = 'upvote'
     upVote.innerText = 'Upvote'
+    upVote.addEventListener("click", upvote)
     document.body.append(upVote)
     let downVote = document.createElement('button')
     downVote.className = 'downvote'
     downVote.innerText = 'Downvote'
+    downVote.addEventListener("click", downvote)
     document.body.append(downVote)
 
     grab()
-// changeImg : should run the showCat function 
-// Upvote : add + to counter 
+// changeImg : should run the showCat function
+// Upvote : add + to counter
 // downvote : decrement - from counter
-// submit : submits a coment to an image 
-// something to display the popularity score 
+// submit : submits a coment to an image
+// something to display the popularity score
 }
 function grab ()  {
   fetch(API_URL, { headers: {'x-api-key': API_KEY}})
   .then(res => res.json())
   .then(data => {
+    // reset()
     showCat(data[0].url)
   })
   .catch(error => console.log(error))
@@ -55,3 +63,19 @@ function showCat(imageURL) {
   imgContainer.append(img);
 }
 
+
+function reset(karma){
+
+  karma = 0;
+}
+
+function upvote(karma){
+  karma ++
+  let karm = document.querySelector(".karmaDiv")
+  karm.innterHTML = `${karma}`
+
+
+}
+function downvote(karma){
+  karma--;
+}
