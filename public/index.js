@@ -13,21 +13,31 @@ window.onload = () =>{
     imgCon.className = 'image-container';
     document.body.append(imgCon)
 
+    let changeImg = document.createElement('button')
+    changeImg.className = 'change-image'
+    changeImg.innerText = 'Change Image'
+    changeImg.addEventListener("click", grab)
+    document.body.append(changeImg)
+    let submitPost = document.createElement('button')
+    submitPost.className = 'submit-post'
+    submitPost.innerText = 'Submit Post'
+    document.body.append(submitPost)
+    let upVote = document.createElement('button')
+    upVote.className = 'upvote'
+    upVote.innerText = 'Upvote'
+    document.body.append(upVote)
+    let downVote = document.createElement('button')
+    downVote.className = 'downvote'
+    downVote.innerText = 'Downvote'
+    document.body.append(downVote)
+
     grab()
-
-  //   const url = `https://cdn2.thecatapi.com/images/9fk.jpg`
-  // let grid = document.createElement('div')
-  // grid.className = 'grid'
-  //   fetch(url,{headers: {
-  //       'x-api-key': API_KEY
-  //     }})
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-
-    // https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=apiKey
+// changeImg : should run the showCat function 
+// Upvote : add + to counter 
+// downvote : decrement - from counter
+// submit : submits a coment to an image 
+// something to display the popularity score 
 }
-// [{"id":"9fk","url":"https://cdn2.thecatapi.com/images/9fk.jpg","width":400,"height":306}]
 function grab ()  {
   fetch(API_URL, { headers: {'x-api-key': API_KEY}})
   .then(res => res.json())
@@ -44,3 +54,4 @@ function showCat(imageURL) {
   img.className = "cat-image";
   imgContainer.append(img);
 }
+
