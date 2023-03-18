@@ -3,8 +3,10 @@
 
 
     let currentImageToVoteOn;
-    let karma = 0;
+  let karma = 0;
+  let commentlist = [];
 window.onload = () =>{
+
     let ele = document.createElement('h1')
     ele.innerText = 'Kitten Pic'
     document.body.append(ele)
@@ -23,14 +25,40 @@ window.onload = () =>{
     changeImg.innerText = 'Change Image'
     changeImg.addEventListener("click", grab)
     document.body.append(changeImg)
+
+    //html input field type text
+    let inputComment = document.createElement('input')
+    inputComment.setAttribute ("type", "text")
+    document.body.append(inputComment)
+
+
     let submitPost = document.createElement('button')
     submitPost.className = 'submit-post'
     submitPost.innerText = 'Submit Post'
     document.body.append(submitPost)
+    submitPost.addEventListener("click", () => {
+      let field = document.querySelector('input')
+      commentlist.push(field)
+      console.log(commentlist, "COMMENT LIST")
+    })
+
+    let imgComments =document.createElement('ul');
+    imgComments.className = 'comment-list'
+    for(let i = 0; i < commentlist.length; i++){
+      let li = document.createElement('li');
+      li.innerText = commentlist[i];
+      imgComments.append(li);
+    }
+
+
     let upVote = document.createElement('button')
     upVote.className = 'upvote'
     upVote.innerText = 'Upvote'
-    upVote.addEventListener("click", upvote)
+    upVote.addEventListener("click", ()=> {
+      console.log(karma, ':Karma1')
+      upvoteThis()
+      console.log(karma, ':Karma2')
+    })
     document.body.append(upVote)
     let downVote = document.createElement('button')
     downVote.className = 'downvote'
@@ -51,6 +79,7 @@ function grab ()  {
   .then(data => {
     // reset()
     showCat(data[0].url)
+    reset()
   })
   .catch(error => console.log(error))
 }
@@ -64,18 +93,34 @@ function showCat(imageURL) {
 }
 
 
-function reset(karma){
-
-  karma = 0;
-}
-
-function upvote(karma){
-  karma ++
+function reset(){
   let karm = document.querySelector(".karmaDiv")
-  karm.innterHTML = `${karma}`
+  karma = 0;
+  karm.innerHTML = `Karma: ${karma}`
+}
+
+function upvoteThis(){
+  console.log(`karma: ${karma}`)
+  karma = karma +1;
+  // console.log(`Karma UP: ${karma}`)
+  let karm = document.querySelector(".karmaDiv")
+  // console.log(`karm: ${karm}`)
+  karm.innerHTML = `Karma: ${karma}`
 
 
 }
-function downvote(karma){
-  karma--;
+function downvote(){
+  console.log(`karma: ${karma}`)
+  karma = karma -1;
+  // console.log(`Karma UP: ${karma}`)
+  let karm = document.querySelector(".karmaDiv")
+  // console.log(`karm: ${karm}`)
+  karm.innerHTML = `Karma: ${karma}`
 }
+
+function submitComment (){
+
+}
+
+//first form
+//form submits comment into array
