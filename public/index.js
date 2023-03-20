@@ -4,7 +4,8 @@
 
     let currentImageToVoteOn;
   let karma = 0;
-  let commentlist = [];
+  let commentlist = ['Test'];
+
 window.onload = () =>{
 
     let ele = document.createElement('h1')
@@ -31,6 +32,11 @@ window.onload = () =>{
     inputComment.setAttribute ("type", "text")
     document.body.append(inputComment)
 
+ let imgComments = document.createElement('ul');
+    imgComments.className = 'comment-list'
+    document.body.append(imgComments)
+    imgComments.addEventListener('click', getComments())
+
 
     let submitPost = document.createElement('button')
     submitPost.className = 'submit-post'
@@ -38,18 +44,39 @@ window.onload = () =>{
     document.body.append(submitPost)
     submitPost.addEventListener("click", () => {
       let field = document.querySelector('input')
-      commentlist.push(field)
+      let inputText = field.value
+      
+      commentlist.push(inputText)
       console.log(commentlist, "COMMENT LIST")
+    let li = document.createElement('li')
+         li.innerText = inputText
+         imgComments.append(li)
+         li.className = 'image-comment'
+
+      
     })
 
-    let imgComments =document.createElement('ul');
-    imgComments.className = 'comment-list'
-    for(let i = 0; i < commentlist.length; i++){
-      let li = document.createElement('li');
-      li.innerText = commentlist[i];
-      imgComments.append(li);
-    }
+   
 
+
+
+    
+    function getComments(){
+      commentlist.forEach(comment => {
+      let li = document.createElement('li')
+      li.innerText = comment
+      imgComments.append(li)
+      li.className = 'image-comment'
+    })
+    
+  }
+  //  let commentSort = function(){ for(let i = 0; i < commentlist.length; i++){
+  //     let li = document.createElement('li');
+  //     li.innerText = commentlist[i];
+  //     console.log(commentlist[i])
+  //     imgComments.append(li);
+  //   }
+ // }
 
     let upVote = document.createElement('button')
     upVote.className = 'upvote'
